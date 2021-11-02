@@ -45,7 +45,7 @@ app.post('/users', (request, response) => {
   const userAlreadyExist = users.some(user => user.username === username);
 
   if (userAlreadyExist) {
-    return response.json({ error: "User Already Exist" })
+    return response.status(400).json({ error: "User Already Exist" })
   }
 
   const user = {
@@ -80,7 +80,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
 
   user.todos.push(todo);
 
-  return response.json(todo);
+  return response.status(201).json(todo);
 });
 
 app.put('/todos/:id', checksExistsUserAccount, checksExistsUserTodo, (request, response) => {
